@@ -1,0 +1,67 @@
+/* @import must come before @tailwind for the browser to honor it */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;0,700;0,800;0,900;1,800;1,900&family=Manrope:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-white font-sans text-ink antialiased;
+  }
+  ::selection { background: rgba(255, 158, 25, .35); }
+  :focus-visible { outline: 2px solid #ff9e19; outline-offset: 2px; }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-bold transition-all duration-200 active:scale-[.98];
+  }
+  .btn-primary { @apply btn bg-volt-500 text-navy-900 shadow-[0_8px_24px_-8px_rgba(255,158,25,.6)] hover:bg-volt-400 hover:shadow-[0_12px_28px_-8px_rgba(255,158,25,.75)]; }
+  .btn-dark { @apply btn bg-navy-800 text-white hover:bg-navy-700; }
+  .btn-outline { @apply btn border border-line bg-white text-navy-800 hover:border-navy-800; }
+  .btn-outline-light { @apply btn border border-white/20 text-white hover:border-white/60 hover:bg-white/5; }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[.18em] text-volt-600;
+  }
+  .eyebrow::before { content: ""; @apply h-[2px] w-6 bg-volt-500; }
+
+  .h-section { @apply font-display text-3xl font-extrabold leading-tight tracking-tight text-navy-800 md:text-[2.6rem]; }
+
+  .card { @apply rounded-2xl border border-line bg-white shadow-card; }
+
+  .field {
+    @apply w-full rounded-xl border border-line bg-white px-4 py-3.5 text-[15px] text-navy-800 outline-none transition placeholder:text-ink-soft focus:border-volt-500 focus:ring-4 focus:ring-volt-500/15;
+  }
+
+  /* Engineering grid used on dark hero/CTA blocks */
+  .bg-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+/* Respect the OS-level "reduce motion" preference everywhere. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Route change entrance. Opacity-only on purpose: a transform here would make
+   this wrapper the containing block for position:fixed modals inside pages. */
+@keyframes yq-page-in { from { opacity: 0; } to { opacity: 1; } }
+.yq-page-transition { animation: yq-page-in .35s ease both; }
+
+/* Current flowing through the hero illustration's wires */
+@keyframes en-flow { to { stroke-dashoffset: -40; } }
+.en-flow { stroke-dasharray: 6 14; animation: en-flow 1.4s linear infinite; }
+@keyframes en-blink { 0%, 100% { opacity: 1; } 50% { opacity: .35; } }
+.en-blink { animation: en-blink 2.4s ease-in-out infinite; }
